@@ -1,13 +1,14 @@
 #ifndef __M5STACK_HBRIDGE_H
 #define __M5STACK_HBRIDGE_H
 
-#include "esphome.h"  // Include ESPHome core
+#include "esphome/core/component.h"
+#include "esphome/components/i2c/i2c.h"
 #include "M5UnitHbridge.h"  // Include the M5UnitHbridge library
 
 namespace esphome {
 namespace m5stack_hbridge {
 
-class M5StackHBridge : public Component {
+class M5StackHBridge : public Component, public i2c::I2CDevice {
  public:
   void setup() override {
     // Initialize the H-Bridge
