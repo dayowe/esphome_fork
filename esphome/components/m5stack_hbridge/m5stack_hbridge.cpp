@@ -17,12 +17,24 @@ void M5StackHBridge::loop() {
 
 void M5StackHBridge::set_direction(hbridge_direction_t direction) {
   ESP_LOGD(TAG, "Setting direction: %d", direction);
-  // Implement the logic to set direction
+
+  uint8_t data[1] = { static_cast<uint8_t>(direction) };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x00, Data: 0x%02X", data[0]);
+  bool status = this->write_bytes(0x00, data, 1);
+  if (!status) {
+    ESP_LOGE(TAG, "Failed to set direction via I2C");
+  }
 }
 
 void M5StackHBridge::set_speed(uint8_t speed) {
   ESP_LOGD(TAG, "Setting speed: %d", speed);
-  // Implement the logic to set speed
+
+  uint8_t data[1] = { speed };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x01, Data: 0x%02X", data[0]);
+  bool status = this->write_bytes(0x01, data, 1);
+  if (!status) {
+    ESP_LOGE(TAG, "Failed to set speed via I2C");
+  }
 }
 
 void M5StackHBridge::set_i2c_pins(uint8_t sda, uint8_t scl) {
