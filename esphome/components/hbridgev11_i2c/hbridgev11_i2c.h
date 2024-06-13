@@ -1,12 +1,12 @@
-#ifndef HBRIDGEV11_H
-#define HBRIDGEV11_H
+#ifndef HBRIDGEV11_I2C_H
+#define HBRIDGEV11_I2C_H
 
 #include "esphome.h"
 #include "Wire.h"
 
-class HBridgeV11 : public Component, public PollingComponent {
+class HBridgeV11I2C : public Component, public PollingComponent {
  public:
-  HBridgeV11() : PollingComponent(15000) {}  // Polling every 15 seconds
+  HBridgeV11I2C() : PollingComponent(15000) {}  // Polling every 15 seconds
 
   void setup() override {
     // Initialize I2C
@@ -39,4 +39,4 @@ class HBridgeV11 : public Component, public PollingComponent {
   }
 };
 
-#endif // HBRIDGEV11_H
+#endif // HBRIDGEV11_I2C_H
