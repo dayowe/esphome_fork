@@ -8,7 +8,7 @@ namespace m5stack_hbridge {
 static const char *TAG = "m5stack_hbridge";
 
 // Register addresses
-#define HBRIDGE_I2C_ADDR               0x20
+#define HBRIDGE_I2C_ADDR               0x21
 #define HBRIDGE_CONFIG_REG             0x00
 #define HBRIDGE_MOTOR_ADC_8BIT_REG     0x10
 #define HBRIDGE_MOTOR_ADC_12BIT_REG    0x20
