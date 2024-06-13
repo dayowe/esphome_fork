@@ -114,7 +114,7 @@ uint16_t M5StackHBridge::get_pwm_freq() {
   return (data[0] | (data[1] << 8));
 }
 
-uint16_t M5StackHBridge::get_analog_input(hbridge_anolog_read_mode_t bit) {
+uint16_t M5StackHBridge::get_analog_input(hbridge_analog_read_mode_t bit) {  // Corrected the type here
   uint8_t reg = (bit == _8bit) ? HBRIDGE_MOTOR_ADC_8BIT_REG : HBRIDGE_MOTOR_ADC_12BIT_REG;
   uint8_t data[2];
   this->read_bytes(reg, data, (bit == _8bit) ? 1 : 2);
