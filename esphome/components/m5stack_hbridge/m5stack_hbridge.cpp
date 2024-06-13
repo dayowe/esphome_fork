@@ -17,10 +17,10 @@ void M5StackHBridge::loop() {
 
 void M5StackHBridge::set_direction(hbridge_direction_t direction) {
   ESP_LOGD(TAG, "Setting direction: %d", direction);
-  
-  // Send direction command to I2C register 0x00
-  uint8_t data[2] = {0x00, static_cast<uint8_t>(direction)};
-  bool status = this->write_bytes(0x00, data, 2);
+
+  uint8_t data[1] = { static_cast<uint8_t>(direction) };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x00, Data: 0x%02X", data[0]);
+  bool status = this->write_bytes(0x00, data, 1);
   if (!status) {
     ESP_LOGE(TAG, "Failed to set direction via I2C");
   }
@@ -29,9 +29,9 @@ void M5StackHBridge::set_direction(hbridge_direction_t direction) {
 void M5StackHBridge::set_speed(uint8_t speed) {
   ESP_LOGD(TAG, "Setting speed: %d", speed);
 
-  // Send speed command to I2C register 0x00
-  uint8_t data[3] = {0x00, 0x00, speed}; // 16 bits PWM duty cycle
-  bool status = this->write_bytes(0x00, data, 3);
+  uint8_t data[2] = { static_cast<uint8_t>(speed & 0xFF), static_cast<uint8_t>((speed >> 8) & 0xFF) };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x00, Data: 0x%02X%02X", data[1], data[0]);
+  bool status = this->write_bytes(0x00, data, 2);
   if (!status) {
     ESP_LOGE(TAG, "Failed to set speed via I2C");
   }
