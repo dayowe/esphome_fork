@@ -128,7 +128,7 @@ void M5StackHBridge::read_bytes(uint8_t reg, uint8_t *buffer, uint8_t length) {
   Wire.beginTransmission(HBRIDGE_I2C_ADDR);
   Wire.write(reg);
   Wire.endTransmission();
-  Wire.requestFrom(HBRIDGE_I2C_ADDR, length);
+  Wire.requestFrom(static_cast<uint8_t>(HBRIDGE_I2C_ADDR), static_cast<uint8_t>(length));
   for (uint8_t i = 0; i < length; i++) {
     buffer[i] = Wire.read();
   }
