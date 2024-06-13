@@ -17,24 +17,12 @@ void M5StackHBridge::loop() {
 
 void M5StackHBridge::set_direction(hbridge_direction_t direction) {
   ESP_LOGD(TAG, "Setting direction: %d", direction);
-  
-  // Send direction command to I2C register 0x00
-  uint8_t data[2] = {0x00, static_cast<uint8_t>(direction)};
-  auto status = this->write_bytes(data, 2);
-  if (!status) {
-    ESP_LOGE(TAG, "Failed to set direction via I2C");
-  }
+  // Implement the logic to set direction
 }
 
 void M5StackHBridge::set_speed(uint8_t speed) {
   ESP_LOGD(TAG, "Setting speed: %d", speed);
-  
-  // Send speed command to I2C register 0x01
-  uint8_t data[3] = {0x00, 0x00, speed}; // 16 bits PWM duty cycle
-  auto status = this->write_bytes(data, 3);
-  if (!status) {
-    ESP_LOGE(TAG, "Failed to set speed via I2C");
-  }
+  // Implement the logic to set speed
 }
 
 void M5StackHBridge::set_i2c_pins(uint8_t sda, uint8_t scl) {
