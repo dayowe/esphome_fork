@@ -35,7 +35,14 @@ void M5StackHBridge::set_direction(hbridge_direction_t direction) {
   ESP_LOGD(TAG, "Setting direction: %d", direction);
   uint8_t data[1] = { static_cast<uint8_t>(direction) };
   ESP_LOGD(TAG, "Writing to I2C: Register 0x00, Data: 0x%02X", data[0]);
-  this->write_bytes(HBRIDGE_CONFIG_REG, data, 1);
+
+  Wire.beginTransmission(HBRIDGE_I2C_ADDR);
+  Wire.write(HBRIDGE_CONFIG_REG);
+  Wire.write(data[0]);
+  uint8_t result = Wire.endTransmission();
+  if (result != 0) {
+    ESP_LOGE(TAG, "Error %d when writing direction", result);
+  }
 }
 
 void M5StackHBridge::set_speed8bits(uint8_t speed) {
@@ -121,7 +128,10 @@ void M5StackHBridge::write_bytes(uint8_t reg, uint8_t *buffer, uint8_t length) {
   for (uint8_t i = 0; i < length; i++) {
     Wire.write(buffer[i]);
   }
-  Wire.endTransmission();
+  uint8_t result = Wire.endTransmission();
+  if (result != 0) {
+    ESP_LOGE(TAG, "Error %d when writing bytes", result);
+  }
 }
 
 void M5StackHBridge::read_bytes(uint8_t reg, uint8_t *buffer, uint8_t length) {
