@@ -11,6 +11,10 @@ void M5StackHBridge::setup() {
   this->set_i2c_pins(this->sda_, this->scl_);
   this->set_i2c_address(this->i2c_address_);
   this->set_i2c_speed(this->i2c_speed_);
+
+  // Test I2C Communication with the HBridge
+  uint8_t version = this->get_firmware_version();
+  ESP_LOGD(TAG, "HBridge Firmware Version: %d", version);
 }
 
 void M5StackHBridge::loop() {
