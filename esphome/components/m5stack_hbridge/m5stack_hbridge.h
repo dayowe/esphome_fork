@@ -12,7 +12,7 @@ enum hbridge_direction_t {
   HBRIDGE_BACKWARD
 };
 
-enum hbridge_analog_read_mode_t {  // Corrected the typo here
+enum hbridge_analog_read_mode_t {
   _8bit = 0,
   _12bit
 };
@@ -29,14 +29,13 @@ class M5StackHBridge : public Component, public i2c::I2CDevice {
   uint8_t get_speed8bits();
   uint16_t get_speed16bits();
   uint16_t get_pwm_freq();
-  uint16_t get_analog_input(hbridge_analog_read_mode_t bit);  // Corrected the type here
+  uint16_t get_analog_input(hbridge_analog_read_mode_t bit);
   float get_motor_current();
   uint8_t get_firmware_version();
   uint8_t get_i2c_address();
   void jump_bootloader();
 
   void set_i2c_pins(uint8_t sda, uint8_t scl);
-  void set_i2c_address(uint8_t address);
   void set_i2c_speed(uint32_t speed);
 
  private:
@@ -45,7 +44,6 @@ class M5StackHBridge : public Component, public i2c::I2CDevice {
 
   uint8_t sda_;
   uint8_t scl_;
-  uint8_t i2c_address_;
   uint32_t i2c_speed_;
 };
 
