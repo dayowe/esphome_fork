@@ -29,7 +29,7 @@ void M5StackHBridge::set_direction(hbridge_direction_t direction) {
 void M5StackHBridge::set_speed(uint8_t speed) {
   ESP_LOGD(TAG, "Setting speed: %d", speed);
   
-  // Send speed command to I2C register 0x01
+  // Send speed command to I2C register 0x00 (16-bit PWM duty cycle)
   uint8_t data[3] = {0x00, 0x00, speed}; // 16 bits PWM duty cycle
   auto status = this->write_bytes(data, 3);
   if (!status) {
