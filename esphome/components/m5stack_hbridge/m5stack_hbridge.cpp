@@ -42,52 +42,28 @@ void M5StackHBridge::set_direction(hbridge_direction_t direction) {
   uint8_t result = Wire.endTransmission();
   if (result != 0) {
     ESP_LOGE(TAG, "Error %d when writing direction", result);
-    return;
   }
-
-  // Read back to verify
-  uint8_t read_back;
-  this->read_bytes(HBRIDGE_CONFIG_REG, &read_back, 1);
-  ESP_LOGD(TAG, "Read back direction: 0x%02X", read_back);
 }
 
 void M5StackHBridge::set_speed8bits(uint8_t speed) {
   ESP_LOGD(TAG, "Setting 8-bit speed: %d", speed);
   uint8_t data[1] = { speed };
   ESP_LOGD(TAG, "Writing to I2C: Register 0x01, Data: 0x%02X", data[0]);
-
   this->write_bytes(HBRIDGE_CONFIG_REG + 1, data, 1);
-
-  // Read back to verify
-  uint8_t read_back;
-  this->read_bytes(HBRIDGE_CONFIG_REG + 1, &read_back, 1);
-  ESP_LOGD(TAG, "Read back speed: 0x%02X", read_back);
 }
 
 void M5StackHBridge::set_speed16bits(uint16_t speed) {
   ESP_LOGD(TAG, "Setting 16-bit speed: %d", speed);
   uint8_t data[2] = { static_cast<uint8_t>(speed & 0xFF), static_cast<uint8_t>((speed >> 8) & 0xFF) };
   ESP_LOGD(TAG, "Writing to I2C: Register 0x02, Data: 0x%02X%02X", data[0], data[1]);
-
   this->write_bytes(HBRIDGE_CONFIG_REG + 2, data, 2);
-
-  // Read back to verify
-  uint8_t read_back[2];
-  this->read_bytes(HBRIDGE_CONFIG_REG + 2, read_back, 2);
-  ESP_LOGD(TAG, "Read back speed: 0x%02X%02X", read_back[0], read_back[1]);
 }
 
 void M5StackHBridge::set_pwm_freq(uint16_t freq) {
   ESP_LOGD(TAG, "Setting PWM frequency: %d", freq);
   uint8_t data[2] = { static_cast<uint8_t>(freq & 0xFF), static_cast<uint8_t>((freq >> 8) & 0xFF) };
   ESP_LOGD(TAG, "Writing to I2C: Register 0x04, Data: 0x%02X%02X", data[0], data[1]);
-
   this->write_bytes(HBRIDGE_CONFIG_REG + 4, data, 2);
-
-  // Read back to verify
-  uint8_t read_back[2];
-  this->read_bytes(HBRIDGE_CONFIG_REG + 4, read_back, 2);
-  ESP_LOGD(TAG, "Read back PWM frequency: 0x%02X%02X", read_back[0], read_back[1]);
 }
 
 uint8_t M5StackHBridge::get_direction() {
