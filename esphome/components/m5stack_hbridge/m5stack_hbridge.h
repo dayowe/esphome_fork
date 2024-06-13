@@ -1,22 +1,23 @@
 #pragma once
 
 #include "esphome/core/component.h"
+#include "esphome/components/i2c/i2c.h"
 
 namespace esphome {
 namespace m5stack_hbridge {
 
 enum hbridge_direction_t {
   HBRIDGE_STOP = 0,
-  HBRIDGE_FORWARD = 1,
-  HBRIDGE_BACKWARD = 2
+  HBRIDGE_FORWARD,
+  HBRIDGE_BACKWARD
 };
 
 enum hbridge_anolog_read_mode_t {
   _8bit = 0,
-  _12bit = 1
+  _12bit
 };
 
-class M5StackHBridge : public Component {
+class M5StackHBridge : public Component, public i2c::I2CDevice {
  public:
   void setup() override;
   void loop() override;
@@ -33,18 +34,19 @@ class M5StackHBridge : public Component {
   uint8_t get_firmware_version();
   uint8_t get_i2c_address();
   void jump_bootloader();
+
   void set_i2c_pins(uint8_t sda, uint8_t scl);
   void set_i2c_address(uint8_t address);
   void set_i2c_speed(uint32_t speed);
 
- protected:
+ private:
   void write_bytes(uint8_t reg, uint8_t *buffer, uint8_t length);
   void read_bytes(uint8_t reg, uint8_t *buffer, uint8_t length);
 
-  uint8_t sda_ = -1;
-  uint8_t scl_ = -1;
-  uint8_t i2c_address_ = 0x20;
-  uint32_t i2c_speed_ = 100000;  // default to 100kHz
+  uint8_t sda_;
+  uint8_t scl_;
+  uint8_t i2c_address_;
+  uint32_t i2c_speed_;
 };
 
 }  // namespace m5stack_hbridge
