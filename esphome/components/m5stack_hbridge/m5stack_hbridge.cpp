@@ -34,24 +34,28 @@ void M5StackHBridge::loop() {
 void M5StackHBridge::set_direction(hbridge_direction_t direction) {
   ESP_LOGD(TAG, "Setting direction: %d", direction);
   uint8_t data[1] = { static_cast<uint8_t>(direction) };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x00, Data: 0x%02X", data[0]);
   this->write_bytes(HBRIDGE_CONFIG_REG, data, 1);
 }
 
 void M5StackHBridge::set_speed8bits(uint8_t speed) {
   ESP_LOGD(TAG, "Setting 8-bit speed: %d", speed);
   uint8_t data[1] = { speed };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x01, Data: 0x%02X", data[0]);
   this->write_bytes(HBRIDGE_CONFIG_REG + 1, data, 1);
 }
 
 void M5StackHBridge::set_speed16bits(uint16_t speed) {
   ESP_LOGD(TAG, "Setting 16-bit speed: %d", speed);
   uint8_t data[2] = { static_cast<uint8_t>(speed & 0xFF), static_cast<uint8_t>((speed >> 8) & 0xFF) };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x02, Data: 0x%02X%02X", data[0], data[1]);
   this->write_bytes(HBRIDGE_CONFIG_REG + 2, data, 2);
 }
 
 void M5StackHBridge::set_pwm_freq(uint16_t freq) {
   ESP_LOGD(TAG, "Setting PWM frequency: %d", freq);
   uint8_t data[2] = { static_cast<uint8_t>(freq & 0xFF), static_cast<uint8_t>((freq >> 8) & 0xFF) };
+  ESP_LOGD(TAG, "Writing to I2C: Register 0x04, Data: 0x%02X%02X", data[0], data[1]);
   this->write_bytes(HBRIDGE_CONFIG_REG + 4, data, 2);
 }
 
