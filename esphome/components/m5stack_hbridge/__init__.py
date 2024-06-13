@@ -5,9 +5,11 @@ CODEOWNERS = ["@Dayowe"]
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import i2c
-from esphome.const import CONF_ID, CONF_SDA, CONF_SCL, CONF_I2C_ADDR, CONF_SPEED
+from esphome.const import CONF_ID, CONF_SDA, CONF_SCL, CONF_SPEED
 
 DEPENDENCIES = ['i2c']
+
+CONF_I2C_ADDR = 'i2c_addr'
 
 m5stack_hbridge_ns = cg.esphome_ns.namespace('m5stack_hbridge')
 M5StackHBridge = m5stack_hbridge_ns.class_('M5StackHBridge', cg.Component, i2c.I2CDevice)
