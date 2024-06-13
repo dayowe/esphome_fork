@@ -13,6 +13,11 @@ CONF_I2C_ADDR = 'i2c_addr'
 
 m5stack_hbridge_ns = cg.esphome_ns.namespace('m5stack_hbridge')
 M5StackHBridge = m5stack_hbridge_ns.class_('M5StackHBridge', cg.Component, i2c.I2CDevice)
+hbridge_direction_t = m5stack_hbridge_ns.enum('hbridge_direction_t')
+
+HBRIDGE_FORWARD = hbridge_direction_t.HBRIDGE_FORWARD
+HBRIDGE_BACKWARD = hbridge_direction_t.HBRIDGE_BACKWARD
+HBRIDGE_STOP = hbridge_direction_t.HBRIDGE_STOP
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(M5StackHBridge),
