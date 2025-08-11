@@ -26,6 +26,7 @@ class MLX90614Component : public PollingComponent, public i2c::I2CDevice {
   bool reset_sensor_();
   bool enter_sleep_mode_();
   bool exit_sleep_mode_();
+  void i2c_bus_reset_();
 
   uint8_t crc8_pec_(const uint8_t *data, uint8_t len);
   bool write_bytes_(uint8_t reg, uint16_t data);
