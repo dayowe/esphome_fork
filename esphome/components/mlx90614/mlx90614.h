@@ -21,6 +21,11 @@ class MLX90614Component : public PollingComponent, public i2c::I2CDevice {
 
  protected:
   bool write_emissivity_();
+  bool read_data_with_crc_(uint8_t reg, uint16_t *data);
+  bool validate_temperature_(float temp);
+  bool reset_sensor_();
+  bool enter_sleep_mode_();
+  bool exit_sleep_mode_();
 
   uint8_t crc8_pec_(const uint8_t *data, uint8_t len);
   bool write_bytes_(uint8_t reg, uint16_t data);
@@ -29,6 +34,8 @@ class MLX90614Component : public PollingComponent, public i2c::I2CDevice {
   sensor::Sensor *object_sensor_{nullptr};
 
   float emissivity_{NAN};
+  uint8_t read_retries_{3};
+  uint8_t error_count_{0};
 };
 }  // namespace mlx90614
 }  // namespace esphome
